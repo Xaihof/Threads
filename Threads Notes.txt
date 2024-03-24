@@ -1,0 +1,27 @@
+UI THREAD
+1. By default All processes run on UI Thread(Main Thread).
+2. Everything on UI happens on this Thread (i.e. Rendering a button,click of a button etc.)
+3. If a task takes more than 5 seconds then it should not run on UI Thread(It is blocking the UI thread).
+4. Resourse intensive operations (e.g Fetching a value from web service, image processing etc.) should not run on UI Thread.
+5. Android Maintains a queue ie. Message Queue which is always populated with tasks(Rendering a button,doing something on onClick of a button etc). Every task is executing one after another.
+6. A thread in a constant loop is called Looper.
+7. main thread is also a looper.
+8. Thread gives the task to a Handler having a reference to the message Queue and will place the task in message Queue. For android the task must be of Runnable instance.
+
+ASYNC TASK:
+1. once the asynctask is stopped you can not resume the same asyncTask
+2. onCanceled() runs on UI/main thread.
+
+Looper Task:
+1. Handler has access to Looper Thread's message Queue.
+2. run() executes only once.
+3. By default Handler gets access to message queue of Looper Thread where it gets instantiated.
+4. msg.obj will be initialuized by thread that sends Message to this Handler.
+5. Handeler can place Runnable instance in message queue of LooperThread.
+6. runOnUiThread()transfers the control from non-ui thread to ui thread.
+7. Runnable instance is the argument to runOnUiThread() method.
+
+HANDLER THREAD:
+1. one can swap HandlerThread for custom Looper implementation and viceversa (provided Handlers implementation remain same.)
+2. Keeping a looper alive for a long to=ime is not advisable. it will drain batteryy and also app performance gets affected.
+3. Always quit looper when you feel it's no more needed.
